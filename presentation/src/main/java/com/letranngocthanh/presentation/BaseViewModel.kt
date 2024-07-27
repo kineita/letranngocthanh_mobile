@@ -35,7 +35,7 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    private fun handleError(throwable: Throwable) {
+    protected open fun handleError(throwable: Throwable) {
         _error.value = throwable.message
     }
 }

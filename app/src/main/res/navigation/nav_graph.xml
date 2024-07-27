@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:label="navigation_graph">
+
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.letranngocthanh.mobile.feature.users.UserListFragment"
+        android:label="User List">
+        <!-- Add actions to navigate to other fragments here -->
+    </fragment>
+
+<!--    <fragment-->
+<!--        android:id="@+id/userDetailFragment"-->
+<!--        android:name="com.letranngocthanh.mobile.feature.userdetail.UserDetailFragment"-->
+<!--        android:label="User Detail">-->
+<!--        <argument-->
+<!--            android:name="userId"-->
+<!--            app:argType="string" />-->
+<!--    </fragment>-->
+
+</navigation>

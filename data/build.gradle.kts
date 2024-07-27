@@ -38,6 +38,11 @@ dependencies {
     implementation(Deps.retrofitCoroutines)
     implementation(Deps.okhttp)
     implementation(Deps.okhttpLoggingInterceptor)
+    implementation(Deps.koinCore)
+    implementation(Deps.koinAndroid)
+    implementation(Deps.koinAndroidCompose)
+    implementation(Deps.gson)
+    implementation(Deps.timber)
 
     testImplementation(Deps.mockk)
     testImplementation(Deps.junit)

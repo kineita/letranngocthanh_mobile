@@ -1,19 +1,22 @@
 package com.letranngocthanh.domain
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onStart
+import com.letranngocthanh.data.util.NetworkConnectivityChecker
+import com.letranngocthanh.domain.exception.NoInternetConnectionException
 
-abstract class BaseUseCase<in P, R> {
+abstract class BaseUseCase<in Params, out T>(
+    private val networkConnectivityChecker: NetworkConnectivityChecker,
+) {
 
-    abstract suspend fun execute(parameters: P): R
-
-    suspend fun run(parameters: P): Result<R> {
-        return try {
-            Result.Success(execute(parameters))
-        } catch (exception: Throwable) {
-            Result.Error(exception)
+    suspend operator fun invoke(params: Params): Result<T> {
+        return if (networkConnectivityChecker.isInternetAvailable()) {
+            validateParams(params)
+            execute(params)
+        } else {
+            Result.failure(NoInternetConnectionException)
         }
     }
+
+    protected abstract suspend fun execute(params: Params): Result<T>
+
+    protected abstract fun validateParams(params: Params)
 }

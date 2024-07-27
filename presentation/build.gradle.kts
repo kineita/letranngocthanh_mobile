@@ -39,6 +39,13 @@ dependencies {
     implementation(Deps.composeRuntime)
     implementation(Deps.composeUi)
     implementation(Deps.composeMaterial)
+    implementation(Deps.koinCore)
+    implementation(Deps.koinAndroid)
+    implementation(Deps.koinAndroidCompose)
+    implementation(Deps.koinAndroidComposeNavigation)
+    implementation(Deps.koinCompose)
+    implementation(Deps.koinCoroutine)
+    implementation(Deps.timber)
 
     testImplementation(Deps.mockk)
     testImplementation(Deps.junit)

@@ -3,6 +3,7 @@ object Versions {
     const val coroutines = "1.7.3"
     const val appCompat = "1.6.1"
     const val material = "1.9.0"
+    const val material3 = "1.2.0-rc01" // Material3
     const val constraintLayout = "2.1.4"
     const val mockk = "1.13.5"
     const val junit = "4.13.2"
@@ -11,8 +12,18 @@ object Versions {
     const val okhttp = "4.9.3"
     const val androidxTestExtJunit = "1.1.5"
     const val lifecycle = "2.8.0"
-    const val compose = "1.5.1" // Use the version compatible with your Compose setup
-    const val composeUi = "1.5.1" // Ensure this matches your Compose version
+    const val compose = "1.5.1"
+    const val composeUi = "1.5.1"
+    const val composeMaterial = "1.5.1"
+    const val composeUiTooling = "1.5.1"
+    const val koin = "4.0.0-RC1"
+    const val koinAndroid = "4.0.0-RC1"
+    const val koinAndroidCompose = "4.0.0-RC1"
+    const val gson = "2.10.1"
+    const val navVersion = "2.7.1"
+    const val core = "1.12.0"
+    const val timber = "5.0.1"
+    const val coil = "2.4.0"
 }
 
 object Deps {
@@ -34,6 +45,20 @@ object Deps {
     const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
     const val composeUi = "androidx.compose.ui:ui:${Versions.composeUi}"
-    const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
-    const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.composeUi}"
+    const val composeMaterial = "androidx.compose.material:material:${Versions.composeMaterial}"
+    const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.composeUiTooling}"
+    const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
+    const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+    const val koinBom = "io.insert-koin:koin-bom:${Versions.koin}"
+    const val koinCoroutine = "io.insert-koin:koin-core-coroutines:${Versions.koin}"
+    const val koinAndroid = "io.insert-koin:koin-android:${Versions.koinAndroid}"
+    const val koinAndroidCompose = "io.insert-koin:koin-androidx-compose:${Versions.koinAndroidCompose}"
+    const val koinAndroidComposeNavigation = "io.insert-koin:koin-androidx-compose-navigation:${Versions.koinAndroidCompose}"
+    const val koinCompose = "io.insert-koin:koin-compose:${Versions.koinAndroidCompose}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+    const val navFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navVersion}" // Navigation Fragment
+    const val navUi = "androidx.navigation:navigation-ui-ktx:${Versions.navVersion}" // Navigation UI
+    const val core = "androidx.core:core-ktx:${Versions.core}"
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
 }
