@@ -33,11 +33,11 @@ import com.letranngocthanh.presentation.ViewState
 import com.letranngocthanh.presentation.feature.users.UiEvent
 import com.letranngocthanh.presentation.feature.users.UserListViewModel
 import com.letranngocthanh.presentation.model.users.UserUI
-import org.koin.compose.koinInject
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserListScreen(navController: NavHostController) {
-    val viewModel: UserListViewModel = koinInject()
+    val viewModel: UserListViewModel = koinViewModel()
     val viewState by viewModel.viewState
     val uiEvent by viewModel.uiEvent
     val context = LocalContext.current

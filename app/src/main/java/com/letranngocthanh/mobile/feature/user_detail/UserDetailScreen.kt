@@ -24,11 +24,11 @@ import com.letranngocthanh.mobile.ui.common.TopAppBar
 import com.letranngocthanh.presentation.ViewState
 import com.letranngocthanh.presentation.feature.user_detail.UserDetailViewModel
 import com.letranngocthanh.presentation.model.users.UserDetailUI
-import org.koin.compose.koinInject
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserDetailScreen(userId: String, navController: NavHostController) {
-    val viewModel: UserDetailViewModel = koinInject()
+    val viewModel: UserDetailViewModel = koinViewModel()
     val viewState by viewModel.viewState
 
     LaunchedEffect(userId) {
