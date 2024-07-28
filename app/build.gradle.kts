@@ -71,7 +71,14 @@ dependencies {
     implementation(Deps.timber)
     implementation(Deps.coil)
 
-    testImplementation(Deps.mockk)
-    testImplementation(Deps.junit)
+    androidTestImplementation(Deps.composeUiTestJunit4)
+    androidTestImplementation(Deps.composeUiTestManifest)
+    androidTestImplementation(Deps.espressoCore)
+    androidTestImplementation(Deps.koinTest)
+    androidTestImplementation(Deps.koinJunitTest)
     androidTestImplementation(Deps.androidxTestExtJunit)
+    androidTestImplementation(Deps.mockkAndroid)
+    androidTestImplementation(Deps.testing)
+    androidTestImplementation(Deps.coreTesting)
+    androidTestImplementation(Deps.koinAndroidCompose)
 }

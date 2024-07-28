@@ -1,5 +1,6 @@
 package com.letranngocthanh.mobile.feature.users
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,10 +10,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +29,7 @@ import com.letranngocthanh.mobile.ui.common.OnBottomReached
 import com.letranngocthanh.mobile.ui.common.OnePixelLine
 import com.letranngocthanh.mobile.ui.common.TopAppBar
 import com.letranngocthanh.presentation.ViewState
+import com.letranngocthanh.presentation.feature.users.UiEvent
 import com.letranngocthanh.presentation.feature.users.UserListViewModel
 import com.letranngocthanh.presentation.model.users.UserUI
 import org.koin.compose.koinInject
@@ -34,6 +38,19 @@ import org.koin.compose.koinInject
 fun UserListScreen(navController: NavHostController) {
     val viewModel: UserListViewModel = koinInject()
     val viewState by viewModel.viewState
+    val uiEvent by viewModel.uiEvent
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchUsers()
+    }
+
+    // Observe UI events and show Toast
+    LaunchedEffect(uiEvent) {
+        if (uiEvent is UiEvent.ShowToast) {
+            Toast.makeText(context, (uiEvent as UiEvent.ShowToast).message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Add TopAppBar with a back button or title as needed
@@ -84,6 +101,7 @@ fun UserListContent(
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             state = listState,
+            modifier = Modifier.fillMaxSize()
         ) {
             items(users) { user ->
                 UserListItem(user = user) {
@@ -93,7 +111,11 @@ fun UserListContent(
 
             if (loadingMore) {
                 item {
-                    Spacer(modifier = Modifier.height(100.dp))
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(50.dp)
+                            .align(Alignment.Center)
+                    )
                 }
             }
         }

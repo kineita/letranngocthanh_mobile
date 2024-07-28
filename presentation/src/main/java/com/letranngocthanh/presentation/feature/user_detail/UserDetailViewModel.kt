@@ -27,7 +27,8 @@ open class UserDetailViewModel(
             if (result.isSuccess && userDetailUI != null) {
                 _viewState.value = ViewState.Success(userDetailUI)
             } else {
-                _viewState.value = ViewState.Error(Exception("Unknown error"))
+                val exception = result.exceptionOrNull() ?: Exception("Unknown error")
+                _viewState.value = ViewState.Error(exception)
             }
         }
     }

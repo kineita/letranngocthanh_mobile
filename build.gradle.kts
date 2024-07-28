@@ -13,3 +13,7 @@ buildscript {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+tasks.register("testAllModules") {
+    dependsOn(":presentation:test", ":domain:test", ":data:test")
+}

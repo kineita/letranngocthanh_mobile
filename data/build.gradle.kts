@@ -44,14 +44,18 @@ dependencies {
     implementation(Deps.koinAndroidCompose)
     implementation(Deps.gson)
     implementation(Deps.timber)
-
     implementation(Deps.roomRuntime)
     implementation(Deps.roomKtx)
     annotationProcessor(Deps.roomCompiler)
     kapt(Deps.roomCompiler)
-    testImplementation(Deps.roomTest)
 
+    testImplementation(Deps.roomTest)
+    testImplementation(Deps.testing)
+    testImplementation(Deps.coroutinesTest)
+    testImplementation(Deps.jupiterApi)
+    testRuntimeOnly(Deps.jupiterEngine)
+    testImplementation(Deps.slf4j)
+    testImplementation(Deps.kotlinTest)
     testImplementation(Deps.mockk)
     testImplementation(Deps.junit)
-    androidTestImplementation(Deps.androidxTestExtJunit)
 }

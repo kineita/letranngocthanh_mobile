@@ -8,8 +8,6 @@ import com.letranngocthanh.data.source.user.local.UserDatabase
 import com.letranngocthanh.data.source.user.local.UserLocalDataSource
 import com.letranngocthanh.data.source.user.remote.DefaultUserRemoteDataSource
 import com.letranngocthanh.data.source.user.remote.UserRemoteDataSource
-import com.letranngocthanh.data.util.NetworkConnectivityChecker
-import com.letranngocthanh.data.util.NetworkConnectivityCheckerImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -38,10 +36,6 @@ private fun featureModule() = module {
         DefaultUserLocalDataSource(
             userDao = get()
         )
-    }
-
-    single<NetworkConnectivityChecker> {
-        NetworkConnectivityCheckerImpl(androidContext())
     }
 }
 

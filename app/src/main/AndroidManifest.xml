@@ -27,4 +27,8 @@
         </activity>
     </application>
 
+    <instrumentation
+        android:name="androidx.test.runner.AndroidJUnitRunner"
+        android:targetPackage="com.letranngocthanh.mobile" />
+
 </manifest>

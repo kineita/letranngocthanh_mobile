@@ -40,7 +40,17 @@ dependencies {
     implementation(Deps.koinAndroidCompose)
     implementation(Deps.timber)
 
+    testImplementation(Deps.testing)
+    testImplementation(Deps.coroutinesTest)
+    testImplementation(Deps.coreTesting)
+    testImplementation(Deps.jupiterApi)
+    testRuntimeOnly(Deps.jupiterEngine)
+    testImplementation(Deps.slf4j)
     testImplementation(Deps.mockk)
     testImplementation(Deps.junit)
-    androidTestImplementation(Deps.androidxTestExtJunit)
+    testImplementation(Deps.kotlinTest)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

@@ -22,14 +22,13 @@ open class UserListViewModel(
     private val _loadingMore = mutableStateOf(false)
     val loadingMore: State<Boolean> = _loadingMore
 
+    private val _uiEvent = mutableStateOf<UiEvent>(UiEvent.None)
+    val uiEvent: State<UiEvent> get() = _uiEvent
+
     private var currentPage = 0
     private var usersList = mutableListOf<UserUI>()
 
-    init {
-        fetchUsers()
-    }
-
-    private fun fetchUsers() {
+    fun fetchUsers() {
         viewModelScope.launch {
             _viewState.value = ViewState.Loading
 
@@ -59,6 +58,10 @@ open class UserListViewModel(
                 usersList.addAll(userUIs)
                 _viewState.value = ViewState.Success(usersList)
                 currentPage++
+            } else {
+                val exception = result.exceptionOrNull() ?: Exception("Unknown Error - Cannot fetchUsers")
+                Timber.d("$TAG - fetchUsers fail - $exception")
+                _uiEvent.value = UiEvent.ShowToast("Failed to load more users: ${exception.message}")
             }
             _loadingMore.value = false
         }
@@ -67,4 +70,11 @@ open class UserListViewModel(
     companion object {
         private const val TAG = "UserListViewModel"
     }
+}
+
+sealed class UiEvent {
+
+    data class ShowToast(val message: String) : UiEvent()
+
+    object None : UiEvent()
 }

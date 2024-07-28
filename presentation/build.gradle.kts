@@ -49,5 +49,10 @@ dependencies {
 
     testImplementation(Deps.mockk)
     testImplementation(Deps.junit)
-    androidTestImplementation(Deps.androidxTestExtJunit)
+    testImplementation(Deps.testing)
+    testImplementation(Deps.coroutinesTest)
+    testImplementation(Deps.coreTesting)
+    testImplementation(Deps.jupiterApi)
+    testImplementation(Deps.jupiterEngine)
+    testImplementation(Deps.slf4j)
 }

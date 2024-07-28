@@ -1,7 +1,6 @@
 package com.letranngocthanh.domain.feature.user
 
 import com.letranngocthanh.data.repo.user.UserRepository
-import com.letranngocthanh.data.util.NetworkConnectivityChecker
 import com.letranngocthanh.domain.BaseUseCase
 import com.letranngocthanh.domain.exception.user.InvalidUserIdException
 import com.letranngocthanh.domain.model.user.UserDetail
