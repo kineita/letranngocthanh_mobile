@@ -5,13 +5,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,15 +42,15 @@ fun UserListScreen(navController: NavHostController) {
     val uiEvent by viewModel.uiEvent
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-        viewModel.fetchUsers()
-    }
-
     // Observe UI events and show Toast
     LaunchedEffect(uiEvent) {
         if (uiEvent is UiEvent.ShowToast) {
             Toast.makeText(context, (uiEvent as UiEvent.ShowToast).message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    val listState = rememberSaveable(saver = LazyListState.Saver) {
+        LazyListState()
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -82,7 +83,12 @@ fun UserListScreen(navController: NavHostController) {
 
                 is ViewState.Success -> {
                     val users = (viewState as ViewState.Success<List<UserUI>>).data
-                    UserListContent(users = users, userListViewModel = viewModel, navController = navController)
+                    UserListContent(
+                        users = users,
+                        userListViewModel = viewModel,
+                        navController = navController,
+                        listState = listState
+                    )
                 }
             }
         }
@@ -93,9 +99,9 @@ fun UserListScreen(navController: NavHostController) {
 fun UserListContent(
     users: List<UserUI>,
     userListViewModel: UserListViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+    listState: LazyListState
 ) {
-    val listState = rememberLazyListState()
     val loadingMore by userListViewModel.loadingMore
 
     Box(modifier = Modifier.fillMaxSize()) {

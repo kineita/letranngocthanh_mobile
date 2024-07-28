@@ -4,7 +4,7 @@ import com.letranngocthanh.presentation.feature.user_detail.DefaultUserDetailMap
 import com.letranngocthanh.presentation.feature.user_detail.UserDetailMapper
 import com.letranngocthanh.presentation.feature.user_detail.UserDetailViewModel
 import com.letranngocthanh.presentation.feature.users.*
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val presentationModules = module {

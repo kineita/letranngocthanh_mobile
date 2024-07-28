@@ -24,7 +24,6 @@ import com.letranngocthanh.mobile.ui.common.TopAppBar
 import com.letranngocthanh.presentation.ViewState
 import com.letranngocthanh.presentation.feature.user_detail.UserDetailViewModel
 import com.letranngocthanh.presentation.model.users.UserDetailUI
-import com.letranngocthanh.presentation.model.users.UserUI
 import org.koin.compose.koinInject
 
 @Composable

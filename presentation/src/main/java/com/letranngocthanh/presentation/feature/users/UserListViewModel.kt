@@ -28,6 +28,10 @@ open class UserListViewModel(
     private var currentPage = 0
     private var usersList = mutableListOf<UserUI>()
 
+    init {
+        fetchUsers()
+    }
+
     fun fetchUsers() {
         viewModelScope.launch {
             _viewState.value = ViewState.Loading
