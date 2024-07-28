@@ -1,7 +1,13 @@
 package com.letranngocthanh.data.di
 
-import com.letranngocthanh.data.feature.user.UserRepository
-import com.letranngocthanh.data.feature.user.DefaultUserRepository
+import com.letranngocthanh.data.repo.user.UserRepository
+import com.letranngocthanh.data.repo.user.DefaultUserRepository
+import com.letranngocthanh.data.source.user.local.DefaultUserLocalDataSource
+import com.letranngocthanh.data.source.user.local.UserDao
+import com.letranngocthanh.data.source.user.local.UserDatabase
+import com.letranngocthanh.data.source.user.local.UserLocalDataSource
+import com.letranngocthanh.data.source.user.remote.DefaultUserRemoteDataSource
+import com.letranngocthanh.data.source.user.remote.UserRemoteDataSource
 import com.letranngocthanh.data.util.NetworkConnectivityChecker
 import com.letranngocthanh.data.util.NetworkConnectivityCheckerImpl
 import org.koin.android.ext.koin.androidContext
@@ -9,16 +15,37 @@ import org.koin.dsl.module
 
 val dataModules = listOf(
     productionRetrofitModule,
-    featureModule()
+    roomModule(),
+    featureModule(),
 )
 
 private fun featureModule() = module {
 
     single<UserRepository> {
-        DefaultUserRepository(userService = get())
+        DefaultUserRepository(
+            remoteDataSource = get(),
+            localDataSource = get(),
+        )
+    }
+
+    single<UserRemoteDataSource> {
+        DefaultUserRemoteDataSource(
+            userService = get()
+        )
+    }
+
+    single<UserLocalDataSource> {
+        DefaultUserLocalDataSource(
+            userDao = get()
+        )
     }
 
     single<NetworkConnectivityChecker> {
         NetworkConnectivityCheckerImpl(androidContext())
     }
+}
+
+private fun roomModule() = module {
+    single { UserDatabase.getDatabase(androidContext()) }
+    single<UserDao> { get<UserDatabase>().userDao() }
 }

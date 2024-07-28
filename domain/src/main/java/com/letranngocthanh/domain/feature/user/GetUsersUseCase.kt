@@ -1,6 +1,6 @@
 package com.letranngocthanh.domain.feature.user
 
-import com.letranngocthanh.data.feature.user.UserRepository
+import com.letranngocthanh.data.repo.user.UserRepository
 import com.letranngocthanh.data.util.NetworkConnectivityChecker
 import com.letranngocthanh.domain.BaseUseCase
 import com.letranngocthanh.domain.exception.pagination.InvalidPageNumberException
@@ -9,9 +9,8 @@ import com.letranngocthanh.domain.model.user.User
 
 class GetUsersUseCase(
     private val userRepository: UserRepository,
-    private val userDataMapper: UserDataMapper,
-    networkConnectivityChecker: NetworkConnectivityChecker
-) : BaseUseCase<GetUsersUseCase.Params, List<User>>(networkConnectivityChecker) {
+    private val userDataMapper: UserDataMapper
+) : BaseUseCase<GetUsersUseCase.Params, List<User>>() {
 
     override suspend fun execute(params: Params): Result<List<User>> {
         return userRepository.getUsers(

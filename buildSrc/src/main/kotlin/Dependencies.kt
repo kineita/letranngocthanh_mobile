@@ -24,6 +24,7 @@ object Versions {
     const val core = "1.12.0"
     const val timber = "5.0.1"
     const val coil = "2.4.0"
+    const val room = "2.6.1"
 }
 
 object Deps {
@@ -61,4 +62,8 @@ object Deps {
     const val core = "androidx.core:core-ktx:${Versions.core}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val roomTest = "androidx.room:room-testing:${Versions.room}"
 }

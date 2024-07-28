@@ -1,4 +1,4 @@
-package com.letranngocthanh.data.feature.user
+package com.letranngocthanh.data.source.user.remote
 
 import com.letranngocthanh.data.model.UserDetailDto
 import com.letranngocthanh.data.model.UserDto
@@ -15,7 +15,7 @@ interface UserService {
     ): List<UserDto>
 
     @GET("users/{login_username}")
-    suspend fun getUserDetails(
+    suspend fun getUserDetail(
         @Path("login_username") loginUsername: String
     ): UserDetailDto
 }

@@ -16,7 +16,6 @@ val domainModules = module {
         GetUserDetailUseCase(
             userRepository = get(),
             userDataMapper = get(),
-            networkConnectivityChecker = get(),
         )
     }
 
@@ -24,7 +23,6 @@ val domainModules = module {
         GetUsersUseCase(
             userRepository = get(),
             userDataMapper = get(),
-            networkConnectivityChecker = get(),
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.letranngocthanh.data.feature.user
+package com.letranngocthanh.data.repo.user
 
 import com.letranngocthanh.data.BaseRepository
 import com.letranngocthanh.data.model.UserDetailDto

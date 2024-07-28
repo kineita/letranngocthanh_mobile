@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    `kotlin-kapt`
 }
 
 android {
@@ -43,6 +44,12 @@ dependencies {
     implementation(Deps.koinAndroidCompose)
     implementation(Deps.gson)
     implementation(Deps.timber)
+
+    implementation(Deps.roomRuntime)
+    implementation(Deps.roomKtx)
+    annotationProcessor(Deps.roomCompiler)
+    kapt(Deps.roomCompiler)
+    testImplementation(Deps.roomTest)
 
     testImplementation(Deps.mockk)
     testImplementation(Deps.junit)

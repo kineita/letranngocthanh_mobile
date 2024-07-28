@@ -36,12 +36,14 @@ open class UserListViewModel(
             val result = getUsersUseCase(GetUsersUseCase.Params(perPage = 20, since = currentPage * 20))
             if (result.isSuccess) {
                 val userUIs = userUIMapper.toUserUIs(result.getOrNull() ?: emptyList())
-                Timber.d("$TAG - fetchUsers - $userUIs")
+                Timber.d("$TAG - fetchUsers successfully - $userUIs")
                 usersList.addAll(userUIs)
                 _viewState.value = ViewState.Success(usersList)
                 currentPage++
             } else {
-                _viewState.value = ViewState.Error(Exception("Unknown error"))
+                val exception = result.exceptionOrNull() ?: Exception("Unknown Error - Cannot fetchUsers")
+                Timber.d("$TAG - fetchUsers fail - $exception")
+                _viewState.value = ViewState.Error(exception)
             }
         }
     }

@@ -1,7 +1,7 @@
 package com.letranngocthanh.data.di
 
 import com.google.gson.GsonBuilder
-import com.letranngocthanh.data.feature.user.UserService
+import com.letranngocthanh.data.source.user.remote.UserService
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
