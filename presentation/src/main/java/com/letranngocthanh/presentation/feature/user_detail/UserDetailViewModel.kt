@@ -1,13 +1,10 @@
 package com.letranngocthanh.presentation.feature.user_detail
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.viewModelScope
 import com.letranngocthanh.domain.feature.user.GetUserDetailUseCase
 import com.letranngocthanh.presentation.BaseViewModel
 import com.letranngocthanh.presentation.ViewState
+import com.letranngocthanh.presentation.exception.user_detail.FetchUserDetailException
 import com.letranngocthanh.presentation.model.users.UserDetailUI
-import kotlinx.coroutines.launch
 
 open class UserDetailViewModel(
     private val getUserDetailUseCase: GetUserDetailUseCase,
@@ -23,7 +20,7 @@ open class UserDetailViewModel(
             if (result.isSuccess && userDetailUI != null) {
                 _viewState.value = ViewState.Success(userDetailUI)
             } else {
-                val exception = result.exceptionOrNull() ?: Exception("Unknown error")
+                val exception = result.exceptionOrNull() ?: FetchUserDetailException()
                 handleError(exception)
             }
         })

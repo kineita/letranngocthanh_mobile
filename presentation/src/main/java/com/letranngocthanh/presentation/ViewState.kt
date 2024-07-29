@@ -17,7 +17,10 @@ sealed class ViewState<out T> {
 
 val <T> Result<T>.viewState: ViewState<T>?
     get() = when {
-        isSuccess -> ViewState.Success(getOrNull() ?: throw IllegalStateException("Result is successful but data is null"))
+        isSuccess -> ViewState.Success(
+            getOrNull() ?: throw IllegalStateException("Result is successful but data is null")
+        )
+
         isFailure -> ViewState.Error(exceptionOrNull() ?: Exception("Unknown error"))
         else -> null
     }

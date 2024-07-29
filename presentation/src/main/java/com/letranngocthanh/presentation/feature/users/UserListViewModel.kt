@@ -2,13 +2,11 @@ package com.letranngocthanh.presentation.feature.users
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.viewModelScope
 import com.letranngocthanh.domain.feature.user.GetUsersUseCase
 import com.letranngocthanh.presentation.BaseViewModel
 import com.letranngocthanh.presentation.ViewState
+import com.letranngocthanh.presentation.exception.users.FetchUsersException
 import com.letranngocthanh.presentation.model.users.UserUI
-import com.letranngocthanh.presentation.viewState
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 open class UserListViewModel(
@@ -33,10 +31,12 @@ open class UserListViewModel(
         launch({
             _viewState.value = ViewState.Loading
 
-            val result = getUsersUseCase(GetUsersUseCase.Params(
-                perPage = ITEMS_PER_PAGE,
-                since = currentPage * ITEMS_PER_PAGE
-            ))
+            val result = getUsersUseCase(
+                GetUsersUseCase.Params(
+                    perPage = ITEMS_PER_PAGE,
+                    since = currentPage * ITEMS_PER_PAGE
+                )
+            )
             if (result.isSuccess) {
                 val userUIs = userUIMapper.toUserUIs(result.getOrNull() ?: emptyList())
                 Timber.d("$TAG - fetchUsers successfully - $userUIs")
@@ -44,7 +44,7 @@ open class UserListViewModel(
                 _viewState.value = ViewState.Success(usersList)
                 currentPage++
             } else {
-                val exception = result.exceptionOrNull() ?: Exception("Unknown Error - Cannot fetchUsers")
+                val exception = result.exceptionOrNull() ?: FetchUsersException()
                 Timber.d("$TAG - fetchUsers fail - $exception")
                 _viewState.value = ViewState.Error(exception)
             }
@@ -56,17 +56,19 @@ open class UserListViewModel(
 
         _loadingMore.value = true
         launch({
-            val result = getUsersUseCase(GetUsersUseCase.Params(
-                perPage = ITEMS_PER_PAGE,
-                since = currentPage * ITEMS_PER_PAGE
-            ))
+            val result = getUsersUseCase(
+                GetUsersUseCase.Params(
+                    perPage = ITEMS_PER_PAGE,
+                    since = currentPage * ITEMS_PER_PAGE
+                )
+            )
             if (result.isSuccess) {
                 val userUIs = userUIMapper.toUserUIs(result.getOrNull() ?: emptyList())
                 usersList.addAll(userUIs)
                 _viewState.value = ViewState.Success(usersList)
                 currentPage++
             } else {
-                val exception = result.exceptionOrNull() ?: Exception("Unknown Error - Cannot fetchUsers")
+                val exception = result.exceptionOrNull() ?: FetchUsersException()
                 Timber.d("$TAG - fetchUsers fail - $exception")
                 _uiEvent.value = UiEvent.ShowToast("Failed to load more users: ${exception.message}")
             }
