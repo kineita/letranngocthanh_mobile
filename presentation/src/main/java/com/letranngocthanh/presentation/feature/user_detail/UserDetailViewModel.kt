@@ -12,25 +12,21 @@ import kotlinx.coroutines.launch
 open class UserDetailViewModel(
     private val getUserDetailUseCase: GetUserDetailUseCase,
     private val userDetailMapper: UserDetailMapper,
-) : BaseViewModel() {
-
-    private val _viewState = mutableStateOf<ViewState<UserDetailUI>>(ViewState.Loading)
-    val viewState: State<ViewState<UserDetailUI>> = _viewState
+) : BaseViewModel<UserDetailUI>() {
 
     fun fetchUserDetail(userId: String) {
-        viewModelScope.launch {
+        launch({
             val result = getUserDetailUseCase(GetUserDetailUseCase.Params(userId = userId)).map {
                 userDetailMapper.toUserDetailUI(userDetail = it)
             }
             val userDetailUI = result.getOrNull()
-
             if (result.isSuccess && userDetailUI != null) {
                 _viewState.value = ViewState.Success(userDetailUI)
             } else {
                 val exception = result.exceptionOrNull() ?: Exception("Unknown error")
-                _viewState.value = ViewState.Error(exception)
+                handleError(exception)
             }
-        }
+        })
     }
 
     companion object {

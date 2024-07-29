@@ -1,41 +1,34 @@
 package com.letranngocthanh.presentation
 
-import android.app.Application
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel<T> : ViewModel() {
 
-    private val _loading = mutableStateOf(false)
-    val loading: State<Boolean> get() = _loading
+    protected val _viewState = mutableStateOf<ViewState<T>>(ViewState.Loading)
+    val viewState: State<ViewState<T>> = _viewState
 
-    private val _error = mutableStateOf<String?>(null)
-    val error: State<String?> get() = _error
-
-    protected fun launchDataLoad(
+    protected fun launch(
         block: suspend () -> Unit,
         onError: (Throwable) -> Unit = { handleError(it) }
     ) {
-        _loading.value = true
         val exceptionHandler = CoroutineExceptionHandler { _, exception ->
             onError(exception)
         }
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
             try {
                 block()
             } catch (e: Exception) {
                 onError(e)
-            } finally {
-                _loading.value = false
             }
         }
     }
 
     protected open fun handleError(throwable: Throwable) {
-        _error.value = throwable.message
+        _viewState.value = ViewState.Error(throwable)
     }
 }

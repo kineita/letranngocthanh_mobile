@@ -117,21 +117,19 @@ fun UserListContent(
 
             if (loadingMore) {
                 item {
-                    CircularProgressIndicator(
+                    Box(
                         modifier = Modifier
-                            .size(50.dp)
-                            .align(Alignment.Center)
-                    )
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .size(60.dp)
+                        )
+                    }
                 }
             }
-        }
-
-        if (loadingMore) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .size(100.dp)
-                    .align(Alignment.Center)
-            )
         }
 
         listState.OnBottomReached(buffer = 3) {

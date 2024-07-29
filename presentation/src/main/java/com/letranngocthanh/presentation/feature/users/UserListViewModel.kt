@@ -14,10 +14,7 @@ import timber.log.Timber
 open class UserListViewModel(
     private val getUsersUseCase: GetUsersUseCase,
     private val userUIMapper: UserUIMapper,
-) : BaseViewModel() {
-
-    private val _viewState = mutableStateOf<ViewState<List<UserUI>>>(ViewState.Loading)
-    val viewState: State<ViewState<List<UserUI>>> = _viewState
+) : BaseViewModel<List<UserUI>>() {
 
     private val _loadingMore = mutableStateOf(false)
     val loadingMore: State<Boolean> = _loadingMore
@@ -33,7 +30,7 @@ open class UserListViewModel(
     }
 
     fun fetchUsers() {
-        viewModelScope.launch {
+        launch({
             _viewState.value = ViewState.Loading
 
             val result = getUsersUseCase(GetUsersUseCase.Params(perPage = 20, since = currentPage * 20))
@@ -48,14 +45,14 @@ open class UserListViewModel(
                 Timber.d("$TAG - fetchUsers fail - $exception")
                 _viewState.value = ViewState.Error(exception)
             }
-        }
+        })
     }
 
     fun onBottomReached() {
         if (_loadingMore.value) return
 
         _loadingMore.value = true
-        viewModelScope.launch {
+        launch({
             val result = getUsersUseCase(GetUsersUseCase.Params(perPage = 20, since = currentPage * 20))
             if (result.isSuccess) {
                 val userUIs = userUIMapper.toUserUIs(result.getOrNull() ?: emptyList())
@@ -68,7 +65,7 @@ open class UserListViewModel(
                 _uiEvent.value = UiEvent.ShowToast("Failed to load more users: ${exception.message}")
             }
             _loadingMore.value = false
-        }
+        })
     }
 
     companion object {
