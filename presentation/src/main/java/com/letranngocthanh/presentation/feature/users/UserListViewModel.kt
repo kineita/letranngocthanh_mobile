@@ -33,7 +33,10 @@ open class UserListViewModel(
         launch({
             _viewState.value = ViewState.Loading
 
-            val result = getUsersUseCase(GetUsersUseCase.Params(perPage = 20, since = currentPage * 20))
+            val result = getUsersUseCase(GetUsersUseCase.Params(
+                perPage = ITEMS_PER_PAGE,
+                since = currentPage * ITEMS_PER_PAGE
+            ))
             if (result.isSuccess) {
                 val userUIs = userUIMapper.toUserUIs(result.getOrNull() ?: emptyList())
                 Timber.d("$TAG - fetchUsers successfully - $userUIs")
@@ -53,7 +56,10 @@ open class UserListViewModel(
 
         _loadingMore.value = true
         launch({
-            val result = getUsersUseCase(GetUsersUseCase.Params(perPage = 20, since = currentPage * 20))
+            val result = getUsersUseCase(GetUsersUseCase.Params(
+                perPage = ITEMS_PER_PAGE,
+                since = currentPage * ITEMS_PER_PAGE
+            ))
             if (result.isSuccess) {
                 val userUIs = userUIMapper.toUserUIs(result.getOrNull() ?: emptyList())
                 usersList.addAll(userUIs)
@@ -70,6 +76,8 @@ open class UserListViewModel(
 
     companion object {
         private const val TAG = "UserListViewModel"
+
+        private const val ITEMS_PER_PAGE = 20
     }
 }
 
