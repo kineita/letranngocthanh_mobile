@@ -77,3 +77,38 @@ To run unit tests for all modules, use the following command:
 ```bash
 ./gradlew testAllModules
 ```
+
+## Project Structure
+```
+.
+├── README.md
+├── settings.gradle
+├── build.gradle
+└── src
+├── app
+│   ├── build.gradle
+│   ├── AndroidManifest.xml
+│   ├── MyApplication.kt
+│   ├── presentation
+│   │   ├── UserDetailViewModel.kt
+│   │   └── UserDetailFragment.kt
+│   └── layout
+│       └── fragment_user_detail.xml
+├── data
+│   ├── build.gradle
+│   ├── local
+│   │   └── UserDao.kt
+│   ├── remote
+│   │   └── UserService.kt
+│   ├── repository
+│   │   └── UserRepository.kt
+│   └── mapper
+│       └── UserMapper.kt
+└── domain
+├── build.gradle
+├── model
+│   └── User.kt
+└── usecase
+└── GetUserDetailUseCase.kt
+```
+
